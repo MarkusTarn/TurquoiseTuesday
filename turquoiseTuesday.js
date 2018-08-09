@@ -4,6 +4,7 @@ import express from 'express';
 import Webtask from 'webtask-tools';
 import { MongoClient } from 'mongodb';
 
+const database = 'turquoise';
 const collection = 'my-collection';
 const server = express();
 
@@ -21,7 +22,7 @@ server.post('/retro', (req, res, next) => {
     MongoClient.connect(MONGO_URL, (connectionError, client) => {
         if (connectionError) return next(connectionError);
 
-        const db = client.db('turquoise');
+        const db = client.db(database);
         db.collection(collection).findOne({ _id: userId }, (queryError, result) => {
             client.close();
             if (queryError) return next(queryError);
@@ -103,7 +104,7 @@ server.post('/feeling', (req, res, next) => {
     MongoClient.connect(MONGO_URL, (connectionError, client) => {
         if (connectionError) return next(connectionError);
 
-        const db = client.db('turquoise');
+        const db = client.db(database);
         db
             .collection(collection)
             .findOne({ _id: userId }, (findQueryError, queryResult) => {
@@ -139,7 +140,7 @@ server.post('/actions', (req, res, next) => {
             MongoClient.connect(MONGO_URL, (connectionError, client) => {
                 if (connectionError) return next(connectionError);
 
-                const db = client.db('turquoise');
+                const db = client.db(database);
                 db
                     .collection(collection)
                     .deleteOne(
