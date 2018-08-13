@@ -65,9 +65,7 @@ server.post('/retro', (req, res, next) => {
                     ],
                 });
             } else {
-                return next(
-                    (response[0] = { text: 'no feelings found', color: '#B84510' })
-                );
+                response[0] = { text: 'no feelings found', color: '#B84510' };
             }
             return next(
                 res.status(200).json({
